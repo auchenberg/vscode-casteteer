@@ -30,7 +30,7 @@ export default class ContentProvider implements vscode.TextDocumentContentProvid
                         <div class="device">    
                             <img src="${this.extensionResourcePath('iphone.png')}" />
                             <div class="screen">    
-                                <canvas></canvas>
+                                <canvas tabindex="0"></canvas>
                             </div>                            
                         </div>
                     </div>

@@ -9,6 +9,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	this.contentProvider = new ContentProvider(context);
 	this.page = null;
+	this.client = null;
 
 	let disposable = vscode.commands.registerCommand('extension.showScreencastView', () => {
 
@@ -24,11 +25,23 @@ export function activate(context: vscode.ExtensionContext) {
 				await this.page.emulate(iPhone);
 				await this.page.goto('http://localhost:3000');
 
-				const client = await this.page.target().createCDPSession();
-				await client.send('Page.startScreencast', {format: 'png', everyNthFrame: 1});
-				await client.on('Page.screencastFrame', (image) => {
+				this.client = await this.page.target().createCDPSession();
+
+				await this.client.send('Emulation.setTouchEmulationEnabled', {
+					enabled: true,
+					maxTouchPoints: 1
+				});
+
+				await this.client.send('Emulation.setEmitTouchEventsForMouse', {
+					enabled: true,
+					configuration: 'mobile'
+				});
+
+				await this.client.send('Page.startScreencast', {format: 'jpeg'});
+
+				await this.client.on('Page.screencastFrame', (image) => {
 					const {sessionId, data, metadata} = image;
-					client.send('Page.screencastFrameAck', {sessionId});
+					this.client.send('Page.screencastFrameAck', {sessionId});
 					this.webview.postMessage({
 						type: "Page.screencastFrame",
 						params: image
@@ -44,7 +57,7 @@ export function activate(context: vscode.ExtensionContext) {
 			"Screencast",
 			vscode.ViewColumn.Two, {
 				enableScripts: true,
-				enableCommandUris: true,
+				enableCommandUris: true
 			}
 		);
 
@@ -52,9 +65,15 @@ export function activate(context: vscode.ExtensionContext) {
 			switch (e.type) {
 				case 'Page.navigate':
 					this.page.goto(e.params.url);
+					break;
+				case 'Input.emulateTouchFromMouseEvent':
+					this.client.send('Input.emulateTouchFromMouseEvent', e.params);
+					break;
+				case 'Input.dispatchKeyEvent':
+					this.client.send('Input.dispatchKeyEvent', e.params);
+					break;
 			}
 		})
-
 
 		this.contentProvider.provideTextDocumentContent('').then(content => {
 			this.webview.html = content;
