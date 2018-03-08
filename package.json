@@ -1,6 +1,6 @@
 {
 	"name": "vscode-casteteer",
-	"displayName": "Screencast from devices over CDP",
+	"displayName": "Screencast from devices over CDP inside VS Code",
 	"description": "",
 	"version": "1.0.0",
 	"publisher": "auchenberg",
