@@ -1,0 +1,67 @@
+body {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+}
+
+.screencast {
+    height: 100%;
+    width: 100%;
+}
+
+.frame-box {
+    display: flex;
+    align-items: center;
+    align-self: center;
+    height: 100vh;
+    text-align: center;
+    padding: 50px 20px 20px 20px;
+    box-sizing: border-box;
+}
+
+.frame {
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.device {
+    height: 100%;   
+    width: 100%;     
+}
+
+.screen {
+    position: absolute;
+    top: 62px;
+    left: 15px;
+    right: 17px;
+    bottom: 64px;
+
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+}
+
+nav {
+    position: absolute;
+    top: 0;
+
+    height: 30px;
+    width: 100%;
+
+    padding: 10px 0;
+
+    background:rgb(51, 51, 51);
+}
+
+nav {
+    display: flex;
+    padding: 2px;
+    box-sizing: border-box;
+}
+
+nav input {
+    flex: 1;
+}

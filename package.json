@@ -1,0 +1,43 @@
+{
+	"name": "vscode-casteteer",
+	"displayName": "Screencast from devices over CDP",
+	"description": "",
+	"version": "1.0.0",
+	"publisher": "auchenberg",
+	"enableProposedApi": true,
+	"engines": {
+		"vscode": "^1.20.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"*",
+		"onCommand:extension.showScreencastView"
+	],
+	"main": "./out/extension",
+	"contributes": {
+		"commands": [
+			{
+				"command": "extension.showScreencastView",
+				"title": "Show Screencast view"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "tsc -p ./",
+		"compile": "tsc -watch -p ./",
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"tslint": "tslint -c tslint.json src/extension.ts"
+	},
+	"dependencies": {
+		"puppeteer": "^1.1.1",
+		"vscode-extension-telemetry": "0.0.15",
+		"vscode-nls": "^3.2.1"
+	},
+	"devDependencies": {
+		"@types/node": "7.0.43",
+		"typescript": "^2.7.2",
+		"vscode": "^1.1.10"
+	}
+}
