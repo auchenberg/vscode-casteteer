@@ -20,7 +20,11 @@ export function activate(context: vscode.ExtensionContext) {
 		(async () => {
 
 			try {
-				const browser = await puppeteer.launch();
+				const browser = await puppeteer.launch({
+					args: [
+					  '--remote-debugging-port=9222'
+					]
+				  })
 				this.page = await browser.newPage();
 				await this.page.emulate(iPhone);
 				await this.page.goto('http://localhost:3000');
