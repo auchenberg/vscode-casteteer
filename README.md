@@ -1,6 +1,6 @@
 # VS Code Screencaster
 
-Secret project.
+VS Code + Puppeteer + CDP + Screencasting + Debugging = 🎉
 
-![](.readme/screenshot.png)
+![](.readme/demo.gif)
 
